@@ -1,0 +1,71 @@
+header{border-bottom: 0.001vw solid navajowhite;padding-bottom: 2vh;}
+.navbar-logo{display: flex;flex-direction: row}
+.navbar-logo-img > svg{z-index: 100;cursor:pointer}
+@media (min-width:400px) {
+    .navbar-logo-img {
+        width: 72px;
+        height: 44px
+    }
+    .navbar-logo-img > svg{
+        width: 44px;
+        height: 44px;
+        padding-left:10px;
+    }
+    #main-text-1{font-size:2vw}
+    pre{display:none}
+    .navbar-logo-text{width:100vw;height:44px;margin-top:1vh}
+}
+@media(min-width: 1080px)
+{
+    .navbar-logo-img {
+        width: 144px;
+        height: 72px
+    }
+    .navbar-logo-img > svg{
+        width: 72px;
+        height: 72px
+    }
+    pre{display:none}
+    .navbar-logo-text{width:100vw;height:72px}
+    #main-text-1{font-size:1.5vw}
+}
+/* tablet img (72,72)*/
+@media(min-width: 1280px)
+{
+    .navbar-logo-img {
+        width: 144px;
+        height: 72px
+    }
+    .navbar-logo-img > svg{
+        width: 72px;
+        height: 72px
+    }
+    .navbar-logo-text{width:100vw;height:72px}
+    #main-text-1, pre{display:block;font-size:0.7vw}
+}
+/* mid-laptop + laptop img(72,72)*/
+.navbar-logo-text{display: flex;flex-direction: row;justify-content: center}
+.navbar-aside{width:20vw;}
+.navbar-aside > ul{list-style: none;width:10vw;}
+.navbar-aside > ul > li{cursor:pointer;margin-right:1vw;margin-top:1vh;color:navajowhite;border-bottom: 0.01vw solid;padding-bottom:1vw;padding-top:1vw;width:15vw;margin-left:0;padding-left:0;}
+.navbar-logo-text > p{font-size:3vw;margin-top:0;margin-right:5vw;color:white;}
+html{display:flex;flex-direction: column;background-color: #232323;font-family: "Times New Roman", sans-serif;font-weight: 400;font-style: normal;}
+body{display:flex;flex-direction: column;}
+main{display: flex;flex-direction: row;}
+aside{height: 100vh;border-right: 0.001vw solid navajowhite;width:18vw}
+.navbar-content{padding:1vw;margin:0;}
+
+.navbar-aside > ul > li {
+    transition: background-color 0.3s ease;
+}
+.navbar-aside > ul > li:hover {
+    background-color: #333333;
+    border-radius:10px;
+}
+.navbar-aside > ul > li > span{padding-left: 1vw;}
+.hidden{display: none;}
+.content-wrapper{margin-left:5vw;color:navajowhite;}
+.content-wrapper > article > h2{padding-left:30vw;}
+.mergeSort .introSort .quickSort .main{width:60vw;}
+.paragraph{margin-left:4vw}
+pre{margin:0;border:1px solid black;width:28vw}

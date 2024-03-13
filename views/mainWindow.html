@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
+    <title>Sorting app</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="navbar">
+            <div class="navbar-logo">
+                <div class="navbar-logo-img">
+                    <svg fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="24px" height="24px"><g id="outlined_9_"><g><path d="M15.504,17h-2.535L13,13.372c0-0.367-0.415-0.512-0.619-0.206l-3.297,5.095C8.865,18.59,9.1,19.031,9.496,19.031h2.535L12,22.628c0,0.367,0.476,0.512,0.68,0.206l3.236-5.095C16.135,17.41,15.9,17,15.504,17z"/></g></g><path d="M19.355,9.036C18.674,5.595,15.641,3,12,3C9.108,3,6.603,4.639,5.352,7.036c-3.272,0.352-5.756,3.332-5.297,6.786C0.455,16.835,3.182,19,6.221,19h0.832c-0.121-0.631-0.005-1.289,0.352-1.825l3.312-5.118c0.441-0.662,1.17-1.057,1.95-1.057h0C13.953,11,15,12.064,15,13.389L14.986,15h0.518c0.927,0,1.772,0.502,2.205,1.311c0.429,0.802,0.38,1.774-0.105,2.5L17.484,19h1.321c2.568,0,4.865-1.852,5.16-4.403C24.303,11.689,22.141,9.235,19.355,9.036z"/></svg>
+                </div>
+                <div class="navbar-logo-text">
+                    <p id="title"><b>Внутрішнє сортування</b></p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <aside class="aside">
+            <nav class="navbar-aside">
+                <ul class="navbar-content" style="padding-top:0">
+                    <li><span>Головна сторінка</span></li>
+                    <li id="mergeSort"><span>Метод сортування злиттям<br> (Д. фон Неймана)</span></li>
+                    <li><span>Метод швидкого сортування</span></li>
+                    <li><span>Метод інтроспективного сортування</span></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="content-wrapper">
+            <article class="main hidden">
+                <h2>Головна сторінка</h2>
+                <div id="main-text-1">
+                    <p><span class="paragraph">Цей додаток був створений в рамках</span> курсової роботи Гуцаном Денисом Анатолійовичем, присвяченої дослідженню та реалізації методів внутрішнього сортування з використанням трьох алгоритмів: merge sort, quick sort та intro sort. У цьому додатку представлено детальний огляд роботи цих алгоритмів, їхню реалізацію та візуалізацію.
+                        <br>
+                        <br>
+                        <span class="paragraph">Merge sort - це алгоритм сортування</span>, який використовує стратегію 'розділити і володарити', розбиваючи масив на дві половини, сортуючи їх окремо, а потім об'єднуючи їх впорядковано.
+                        <br>
+                        <br>
+                        <span class="paragraph">Quick sort - це швидкий алгоритм сортування</span>, який також використовує стратегію 'розділити і володарити'. Він вибирає елемент (півот) з масиву, навколо якого розподіляються інші елементи так, щоб елементи менші за півот знаходилися перед ним, а більші - після нього. Потім алгоритм рекурсивно застосовується до лівого та правого підмасивів.
+                        <br>
+                        <br>
+                        <span class="paragraph">Intro sort - це комбінований алгоритм</span>, який поєднує в собі переваги quick sort та heap sort. Він використовує quick sort для швидкого сортування, але перехід до heap sort, якщо кількість рекурсивних викликів перевищує деякий поріг, що дозволяє уникнути глибокої рекурсії та гарантує ефективність у всіх випадках.</p>
+                </div>
+            </article>
+        <article class="mergeSort">
+            <h2>Merge sort</h2>
+            <div id="main-text-2">
+                <h3>Історична справка</h3>
+                <p><span class="paragraph">Метод сортування злиттям</span>, також відомий як сортування злиттям, був розроблений Джоном фон Нейманом в 1945 році. Даний метод є одним з найефективніших алгоритмів сортування, який використовує стратегію "поділу та підкорення". Він є частиною багатьох алгоритмічних підходів і додав значний внесок у розвиток обчислювальної техніки.</p>
+                <h3>Псевдокод</h3>
+                <button type="submit">Show </button>
+                <pre>
+    функція mergesort(matrix):
+    <br>
+        якщо matrix.length > 1
+            то
+                mid := matrix.length // 2
+                left_half := matrix[:mid]
+                right_half := matrix[mid:
+
+            mergesort(left_half)
+            mergesort(right_half)
+
+            i := j := k := 0
+
+            поки i < left_half.length() та j < right_half.length()
+                повторити
+                    якщо left_half[i] < right_half[j]
+                        то
+                            matrix[k] := left_half[i]
+                            i += 1
+                        інакше
+                            matrix[k] := right_half[j]
+                            j += 1
+                            k += 1
+            поки i < left_half.length()
+                повторити
+                matrix[k] := left_half[i]
+                i += 1
+                k += 1
+
+            поки j < right_half.length()
+                повторити
+                    matrix[k] := right_half[j]
+                    j += 1
+                    k += 1
+        кінець якщо
+        кінець функції
+                </pre>
+                <h3>Програмна реалізація</h3>
+
+            </div>
+        </article>
+        <article class="quickSort hidden">
+            <h2>Quick sort</h2>
+            <div id="main-text-3">
+            <h3>Історична справка</h3>
+            </div>
+        </article>
+        <article class="introSort hidden">
+            <h2>Intro sort</h2>
+            <div id="main-text-4">
+            <h3>Історична справка</h3>
+            </div>
+        </article>
+        </div>
+    </main>
+</body>
+</html>
