@@ -1,0 +1,77 @@
+.hidden{display: none;}
+html{background-color: #363636;color:navajowhite;display:flex}
+.header-wrapper{display: flex;border-bottom: 2px solid navajowhite;width:97vw;margin-left: 1vw;margin-right: 1vw}
+.header-text > h1{font-size: 2vw;margin-left:43vw}
+main{display: flex;margin:1vw}
+.aside-wrapper{height:44vw;border-right: 2px solid navajowhite}
+.aside-wrapper > div {margin: 1vw;}
+.article-wrapper{margin-left: 1vw;font-size: 1vw;}
+.visualizeBox{width:82vw;background: #000;height:20vw;margin-top:1vw;z-index: -1;display: flex;justify-content: flex-start;align-items: flex-end;}
+.bar {background: navajowhite;margin: 0.01px;align-self: flex-end;}
+.sorting-div {
+    width: 10vw;
+    height: 5vw;
+    text-align: center;
+    line-height: 2vw;
+    font-size: 1vw;
+    border-radius: 5px;
+    transition: background-color 0.3s, opacity 0.3s;
+    margin-top: 2vw;
+}
+.outputArray{width:60vw;background: #000;height:4vw;margin-top:1vw;z-index: -1;display: flex;}
+.sorting-div:hover {
+    background-color: navajowhite;
+    opacity: 0.7;
+    color: #000;
+    cursor: pointer;
+}
+button {
+    width: 10vw;
+    height: 4vw;
+    background: navajowhite;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background: lightgoldenrodyellow;
+}
+form > button{
+    margin-left: 5vw;
+}
+@media(max-width: 1200px){
+    .header-text > h1{font-size: 3vw;}
+    button {
+        width: 15vw;
+        height: 4vw;
+    }
+    form > button{
+        margin-left: 8vw;
+    }
+    .article-wrapper{font-size: 1.5vw;}
+    .aside-wrapper{height:55vw;}
+    .sorting-div > a{
+        font-size:1.5vw;
+    }
+    .sorting-div{
+        width: 20vw;
+        height: 10vw;
+        line-height: 3vw;
+    }
+    .visualizeBox{width: 73vw}
+    .outputArray{height:10vw}
+}
+@media(max-width: 800px){
+    button {
+        width: 15vw;
+        height: 4vw;
+        line-height: 2vw;
+    }
+    .sorting-div > a{
+        margin-top:0.5vw;
+        font-size:2vw;
+    }
+    .article-wrapper{font-size: 2vw;}
+    .outputArray{height:18vw}
+}
+
+

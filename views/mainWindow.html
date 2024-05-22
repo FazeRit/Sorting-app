@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Мета-теги для кодування та адаптивного дизайну -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Заголовок веб-сторінки -->
+    <title>Sort virtualizer</title>
+    <!-- Посилання на CSS-файл -->
+    <link rel="stylesheet" href="../public/css/main.css">
+    <!-- Мета-тег для політики безпеки контенту -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body>
+<!-- Шапка веб-сторінки -->
+<header>
+    <div class="header-wrapper">
+        <div class="header-text">
+            <h1>Sorting app</h1>
+        </div>
+    </div>
+</header>
+<!-- Основний контент веб-сторінки -->
+<main>
+    <!-- Бічна панель з кнопками сортування -->
+    <aside class="aside-wrapper">
+        <div id="mergeSortbtn" class="sorting-div">
+            <a>Сортування злиття</a>
+        </div>
+        <div id="quickSortbtn" class="sorting-div">
+            <a>Швидке сортування</a>
+        </div>
+        <div id="introSortbtn" class="sorting-div">
+            <a>Інтроспективне сортування</a>
+        </div>
+    </aside>
+    <!-- Статті з формами для кожного типу сортування -->
+    <div class="article-wrapper">
+        <!-- Стаття для сортування злиття -->
+        <article class="mergeSort">
+            <h2>Сортування злиття</h2>
+            <!-- Форма для введення параметрів сортування злиття -->
+            <form id="MergeForm">
+                <label for="minMergeValue">Мінімальний елемент масиву:</label>
+                <input type="number" id="minMergeValue" name="minMergeValue" required><br><br>
+
+                <label for="maxMergeValue">Максимальний елемент масиву:</label>
+                <input type="number" id="maxMergeValue" name="maxMergeValue" required><br><br>
+
+                <label for="arrayMergeSize">Розмір масиву:</label>
+                <input type="number" id="arrayMergeSize" name="arrayMergeSize" required><br><br>
+                <input type="checkbox" id="sortArrayReversedMerge" name="sortArray">
+                <label for="sortArrayReversedMerge">Зворотньо-впорядкований</label><br><br>
+                <input type="checkbox" id="sortArraySortedMerge" name="sortArray">
+                <label for="sortArraySortedMerge">Впорядкований</label><br><br>
+                <button type="submit" id="MergeFormBtn">Візуалізувати</button>
+            </form>
+            <!-- Кнопки для зупинки сортування та збереження результатів -->
+            <button type="button" id="stopMergeBtn">Зупинити</button>
+            <button type="button" id="saveFileMerge" disabled>Зберегти</button>
+            <!-- Параграфи для відображення глибини рекурсії та часу сортування -->
+            <p id="maxRecursionDepthMerge"></p>
+            <p id="sortingTimeMerge"></p>
+            <!-- Блок для візуалізації сортування -->
+            <div id="visualizeMerge" class="visualizeBox">
+
+            </div>
+            <!-- Заголовок та блок для відображення відсортованого масиву -->
+            <h3>Відсортований масив</h3>
+            <div class="outputArray" id="mergeSortArray">
+
+            </div>
+        </article>
+        <!-- Стаття для швидкого сортування (прихована за замовчуванням) -->
+        <article class="quickSort hidden">
+            <h2>Швидке сортування</h2>
+            <!-- Форма для введення параметрів швидкого сортування -->
+            <form id="QuickForm">
+                <label for="minQuickValue">Мінімальний елемент масиву:</label>
+                <input type="number" id="minQuickValue" name="minQuickValue" required><br><br>
+
+                <label for="maxQuickValue">Максимальний елемент масиву:</label>
+                <input type="number" id="maxQuickValue" name="maxQuickValue" required><br><br>
+
+                <label for="arrayQuickSize">Розмір масиву:</label>
+                <input type="number" id="arrayQuickSize" name="arrayQuickSize" required><br><br>
+                <input type="checkbox" id="sortArrayReversedQuick" name="sortArray">
+                <label for="sortArrayReversedQuick">Зворотньо-впорядкований</label><br><br>
+                <input type="checkbox" id="sortArraySortedQuick" name="sortArray">
+                <label for="sortArraySortedQuick">Впорядкований</label><br><br>
+                <button type="submit" id="QuickFormBtn">Візуалізувати</button>
+            </form>
+            <!-- Кнопки для зупинки сортування та збереження результатів -->
+            <button type="button" id="stopQuickBtn">Зупинити</button>
+            <button type="button" id="saveFileQuick" disabled>Зберегти</button>
+            <!-- Параграфи для відображення глибини рекурсії та часу сортування -->
+            <p id="maxRecursionDepthQuick"></p>
+            <p id="sortingTimeQuick"></p>
+            <!-- Блок для візуалізації сортування -->
+            <div id="visualizeQuick" class="visualizeBox">
+
+            </div>
+            <!-- Заголовок та блок для відображення відсортованого масиву -->
+            <h3>Відсортований масив</h3>
+            <div class="outputArray" id="quickSortArray">
+
+            </div>
+        </article>
+        <!-- Стаття для інтроспективного сортування (прихована за замовчуванням) -->
+        <article class="introSort hidden">
+            <h2>Інтроспективне сортування</h2>
+            <!-- Форма для введення параметрів інтроспективного сортування -->
+            <form id="IntroForm">
+                <label for="minIntroValue">Мінімальний елемент масиву:</label>
+                <input type="number" id="minIntroValue" name="minIntroValue" required><br><br>
+
+                <label for="maxIntroValue">Максимальний елемент масиву:</label>
+                <input type="number" id="maxIntroValue" name="maxIntroValue" required><br><br>
+
+                <label for="arrayIntroSize">Розмір масиву:</label>
+                <input type="number" id="arrayIntroSize" name="arrayIntroSize" required><br><br>
+                <input type="checkbox" id="sortArrayReversedIntro" name="sortArray">
+                <label for="sortArrayReversedIntro">Зворотньо-впорядкований</label><br><br>
+                <input type="checkbox" id="sortArraySortedIntro" name="sortArray">
+                <label for="sortArraySortedIntro">Впорядкований</label><br><br>
+                <button type="submit">Візуалізувати</button>
+            </form>
+            <!-- Кнопки для зупинки сортування та збереження результатів -->
+            <button type="button" id="stopIntroBtn">Зупинити</button>
+            <button type="button" id="saveFileIntro" disabled>Зберегти</button>
+            <!-- Параграфи для відображення глибини рекурсії та часу сортування -->
+            <p id="messageIntro"></p>
+            <p id="sortingTimeIntro"></p>
+            <!-- Блок для візуалізації сортування -->
+            <div id="visualizeIntro" class="visualizeBox">
+
+            </div>
+            <!-- Заголовок та блок для відображення відсортованого масиву -->
+            <h3>Відсортований масив</h3>
+            <div class="outputArray" id="introSortArray">
+
+            </div>
+        </article>
+    </div>
+</main>
+<!-- Підключення JavaScript-файлу -->
+<script src="../routes/renderer.js"></script>
+</body>
+</html>
