@@ -1,5 +1,5 @@
 let currentDepth = 0;
-let usingHeapsort = false
+let usingHeapsort = false;
 
 /**
  * Функція heapsort сортує масив на місці за допомогою алгоритму сортування купи.
@@ -146,6 +146,8 @@ function isSorted(arr) {
  * @returns {Array} Відсортований масив.
  */
 function introSort(begin, end, arr, swaps) {
+    usingHeapsort = false;
+
     if (isSorted(arr.slice(begin, end + 1))) {
         return usingHeapsort;
     }

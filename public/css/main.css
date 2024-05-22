@@ -7,7 +7,7 @@ main{display: flex;margin:1vw}
 .aside-wrapper > div {margin: 1vw;}
 .article-wrapper{margin-left: 1vw;font-size: 1vw;}
 .visualizeBox{width:82vw;background: #000;height:20vw;margin-top:1vw;z-index: -1;display: flex;justify-content: flex-start;align-items: flex-end;}
-.bar {background: navajowhite;margin: 0.01px;align-self: flex-end;}
+.bar {background: navajowhite;align-self: flex-end;}
 .sorting-div {
     width: 10vw;
     height: 5vw;
@@ -57,7 +57,7 @@ form > button{
         height: 10vw;
         line-height: 3vw;
     }
-    .visualizeBox{width: 73vw}
+    .visualizeBox{width: 75vw}
     .outputArray{height:10vw}
 }
 @media(max-width: 800px){
