@@ -250,7 +250,7 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
 
     const swaps = [];
     let startTime = performance.now();
-    let usingHeapSort = introSort(0, IntroData.array.length - 1, IntroData.array, swaps);
+    const { usingHeapsort, swapsHeapsort, maxDepthQuick }= introSort(0, IntroData.array.length - 1, IntroData.array, swaps);
     let endTime = performance.now();
     let sortingTime = endTime - startTime;
 
@@ -264,9 +264,9 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
         ipcRenderer.send('save-file', IntroData.array, 'Intro sort');
     });
 
-    usingHeapSort === true ? document.getElementById('messageIntro').textContent = '':
+    usingHeapsort === true ? document.getElementById('messageIntro').textContent = `Кількість перестановок:${swapsHeapsort}`:
         document.getElementById('messageIntro').textContent =
         `Практична складність (максимальна глибина рекурсії * розмір масиву): 
-        *${IntroData.array.length} =${IntroData.array.length}`;
+        ${maxDepthQuick}*${IntroData.array.length} =${IntroData.array.length*maxDepthQuick}`;
     document.getElementById("sortingTimeIntro").textContent = `Час сортування: ${sortingTime} мс`;
 });

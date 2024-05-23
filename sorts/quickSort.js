@@ -21,6 +21,7 @@ function quickSort(arr, low, high, swaps, depth) {
         }
         quickSort(arr, low, pivotIndex - 1, swaps, depth);
         quickSort(arr, pivotIndex + 1, high, swaps, depth);
+        depth--;
     }
     return { sortedArray: arr, maxDepth };
 }

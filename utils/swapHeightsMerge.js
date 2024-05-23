@@ -1,16 +1,16 @@
 function updateBars(screenSize, arr, bars) {
-    let minVal = Infinity;
-    let maxHeight = -Infinity;
+    const adjustedArray = [...arr];
+    const minVal = Math.min(...adjustedArray);
 
-    const adjustedArray = arr.map(val => {
-        minVal = Math.min(minVal, val);
-        maxHeight = Math.max(maxHeight, val);
-        return val + Math.max(0, -minVal + 1);
-    });
+    if (minVal < 0) {
+        const adjustment = Math.abs(minVal) + 1;
+        adjustedArray.forEach((val, index) => adjustedArray[index] = val + adjustment);
+    }
 
-    adjustedArray.forEach((val, i) => {
-        bars[i].style.height = `${(val / maxHeight) * 80}%`;
-    });
+    const maxHeight = Math.max(...adjustedArray);
+    for (let i = 0; i < adjustedArray.length; i++) {
+        bars[i].style.height = (adjustedArray[i] / maxHeight) * 80 + '%';
+    }
 }
 
 function visualizeArraySwaps(swaps, parentDiv, bars, stopSwap, screenSize) {

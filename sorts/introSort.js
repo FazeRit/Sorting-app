@@ -1,5 +1,7 @@
-let currentDepth = 0;
 let usingHeapsort = false;
+let swapsHeapsort = 0;
+let currentDepthQuick = 0;
+let maxDepthQuick = 0;
 
 /**
  * Функція heapsort сортує масив на місці за допомогою алгоритму сортування купи.
@@ -18,6 +20,7 @@ function heapsort(arr, swaps) {
     for (let i = n - 1; i > 0; i--) {
         [arr[0], arr[i]] = [arr[i], arr[0]];
         swaps.push([0, i]);
+        swapsHeapsort++;
         heapify(arr, i, 0, swaps);
     }
 }
@@ -39,14 +42,17 @@ function heapify(arr, n, i, swaps) {
 
     if (left < n && arr[left] > arr[largest]) {
         largest = left;
+        swapsHeapsort++;
     }
 
     if (right < n && arr[right] > arr[largest]) {
         largest = right;
+        swapsHeapsort++;
     }
 
     if (largest !== i) {
         [arr[i], arr[largest]] = [arr[largest], arr[i]];
+        swapsHeapsort++;
         swaps.push([i, largest]);
         heapify(arr, n, largest, swaps);
     }
@@ -147,16 +153,18 @@ function isSorted(arr) {
  */
 function introSort(begin, end, arr, swaps) {
     usingHeapsort = false;
+    swapsHeapsort = 0;
+    maxDepthQuick = 0;
+    currentDepthQuick = 0;
 
     if (isSorted(arr.slice(begin, end + 1))) {
-        return usingHeapsort;
+        return { usingHeapsort, swapsHeapsort, maxDepthQuick };
     }
 
     let depthLimit = 2*Math.floor(Math.log2(end - begin + 1));
     introsortUtil(begin, end, depthLimit, arr, swaps);
-    return usingHeapsort;
+    return { usingHeapsort, swapsHeapsort, maxDepthQuick };
 }
-
 /**
  * Функція introsortUtil - це допоміжна функція для алгоритму інтроспективного сортування.
  * Вона вибирає відповідний алгоритм сортування на основі розміру масиву і глибини рекурсії.
@@ -180,15 +188,18 @@ function introsortUtil(begin, end, depthLimit, arr, swaps) {
         heapsort(arr, swaps);
         return usingHeapsort;
     }
-
-
-
+    currentDepthQuick++;
+    if (currentDepthQuick > maxDepthQuick) {
+        maxDepthQuick = currentDepthQuick;
+    }
+    
     const pivot = medianOfThree(begin, begin + Math.floor(size / 2), end, arr);
     [arr[pivot], arr[end]] = [arr[end], arr[pivot]];
     swaps.push([pivot, end]);
     const partitionPoint = partition(begin, end, arr, swaps);
     introsortUtil(begin, partitionPoint - 1, depthLimit - 1, arr, swaps);
     introsortUtil(partitionPoint + 1, end, depthLimit - 1, arr, swaps);
+    currentDepthQuick--;
 }
 
 module.exports = introSort;

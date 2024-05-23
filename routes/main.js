@@ -31,7 +31,7 @@ function createWindow() {
     });
 
     // Відкриває DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // Завантажує HTML-файл основного вікна.
     mainWindow.loadFile('./views/mainWindow.html')
@@ -54,9 +54,6 @@ app.on('window-all-closed', function () {
 });
 
 app.on('activate', function () {
-    // На macOS звичайно створюють нове вікно в
-    // додатку, коли на іконку доку клікають, і немає
-    // інших відкритих вікон.
     if (mainWindow === null) {
         createWindow();
     }
@@ -65,6 +62,7 @@ app.on('activate', function () {
 /**
  * Створює модальне вікно, яке відображає повідомлення про помилку.
  * @param {string} error - Повідомлення про помилку для відображення.
+ *
  */
 function createModal(error) {
     let newWindowError = new BrowserWindow({
@@ -98,45 +96,46 @@ function createModal(error) {
     </html>
 `);
 
+
 // Вставляє CSS в модальне вікно, коли воно завантажується.
 newWindowError.webContents.on('did-finish-load', () => {
-newWindowError.webContents.insertCSS(
-    'html{color:navajowhite;display:flex;flex-direction: column;background-color: #232323;font-family: "Times New Roman", sans-serif;font-weight: 400;font-style: normal;}\n' +
-    '\n'
-);
+    newWindowError.webContents.insertCSS(
+        'html{color:navajowhite;display:flex;flex-direction: column;background-color: #232323;font-family: "Times New Roman", sans-serif;font-weight: 400;font-style: normal;}\n' +
+        '\n'
+    );
 });
 
 // Показує модальне вікно, коли воно готове, і закриває його через 5 секунд.
 newWindowError.once('ready-to-show', () => {
-newWindowError.show();
-setTimeout(() => {
-    if (newWindowError && !newWindowError.isDestroyed()) {
-        newWindowError.close();
-    }
-}, 5000);
+    newWindowError.show();
+    setTimeout(() => {
+        if (newWindowError && !newWindowError.isDestroyed()) {
+            newWindowError.close();
+        }
+    }, 5000);
 });
 
 // Викликається, коли вікно закривається.
-newWindowError.on('closed', () => {
-newWindowError = null;
-});
+    newWindowError.on('closed', () => {
+        newWindowError = null;
+    });
 }
 
 // Події міжпроцесорного спілкування для різних умов помилок.
 ipcMain.on("minValueError", function (event, arg) {
-createModal( `Неприпустиме значення для мінімального значення елементу масиву. Допустимі значення від 1 до 100`);
+    createModal( `Неприпустиме значення для мінімального значення елементу масиву. Допустимі значення від 1 до 100`);
 });
 ipcMain.on("maxValueError", function (event, arg) {
-createModal(`Неприпустиме значення для максимального значення елементу масиву. Допустимі значення від 1 до 100`);
+    createModal(`Неприпустиме значення для максимального значення елементу масиву. Допустимі значення від 1 до 100`);
 });
 ipcMain.on("arraySizeError", function (event, arg) {
-createModal(`Неприпустиме значення для розміру масиву. Допустимі значення від 2 до ${arg}.`);
+    createModal(`Неприпустиме значення для розміру масиву. Допустимі значення від 2 до ${arg}.`);
 });
 ipcMain.on("minmaxValueError", function (event, arg) {
-createModal(`Мінімальне значення для розміру масиву не може бути більше максимального.`);
+    createModal(`Мінімальне значення для розміру масиву не може бути більше максимального.`);
 });
 ipcMain.on("valueDifferenceError", function (event, arg) {
-createModal(`Різниця між мінімальним та максимальним значенням повинна бути більше 1.`);
+    createModal(`Різниця між мінімальним та максимальним значенням повинна бути більше 1.`);
 });
 
 /**
@@ -147,22 +146,22 @@ createModal(`Різниця між мінімальним та максимал�
 */
 ipcMain.on('save-file', (event, sortedArray, nameOfMethod) => {
 // Показує діалог збереження.
-dialog.showSaveDialog({
-    title: 'Save Sorted Array',
-    defaultPath: app.getPath('downloads') + '/sorted_array.txt',
-    filters: [{ name: 'Text Files', extensions: ['txt'] }]
-}).then((result) => {
-    // Якщо користувач не скасував діалог, зберігає файл.
-    if (!result.canceled) {
-        fs.writeFile(result.filePath, `Sorted array by ${nameOfMethod}: ${sortedArray.join(', ')}`, (err) => {
-            if (err) {
-                console.error('Error saving file:', err);
-            } else {
-                console.log('File saved successfully!');
-            }
-        });
-    }
-}).catch((err) => {
-    console.error('Error showing save dialog:', err);
-});
+    dialog.showSaveDialog({
+        title: 'Save Sorted Array',
+        defaultPath: app.getPath('downloads') + '/sorted_array.txt',
+        filters: [{ name: 'Text Files', extensions: ['txt'] }]
+    }).then((result) => {
+        // Якщо користувач не скасував діалог, зберігає файл.
+        if (!result.canceled) {
+            fs.writeFile(result.filePath, `Sorted array by ${nameOfMethod}: ${sortedArray.join(', ')}`, (err) => {
+                if (err) {
+                    console.error('Error saving file:', err);
+                } else {
+                    console.log('File saved successfully!');
+                }
+            });
+        }
+    }).catch((err) => {
+        console.error('Error showing save dialog:', err);
+    });
 });
