@@ -1,6 +1,25 @@
+/**
+ * Прапорець, що вказує, чи використовується heapsort у поточній операції сортування.
+ * @type {boolean}
+ */
 let usingHeapsort = false;
+
+/**
+ * Лічильник для кількості обмінів, виконаних під час heapsort.
+ * @type {number}
+ */
 let swapsHeapsort = 0;
+
+/**
+ * Лічильник для поточної глибини рекурсії під час quicksort.
+ * @type {number}
+ */
 let currentDepthQuick = 0;
+
+/**
+ * Максимальна глибина рекурсії, досягнута під час quicksort.
+ * @type {number}
+ */
 let maxDepthQuick = 0;
 
 /**
