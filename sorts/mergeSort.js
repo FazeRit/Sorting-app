@@ -1,68 +1,34 @@
-/**
- * Цей модуль надає реалізацію алгоритму сортування злиттям у JavaScript.
- * @module mergeSort
- */
+function merge(A, p, q, r, swaps, depth) {
+    let i = p;
+    let j = q + 1;
+    let B = [];
 
-/**
- * Рекурсивно сортує масив за допомогою алгоритму сортування злиттям.
- * @param {Array} arr - Масив, який потрібно відсортувати.
- * @param {Array} swaps - Масив для зберігання проміжних результатів процесу сортування.
- * @param {number} depth - Поточна глибина стеку рекурсивних викликів.
- * @returns {Object} Об'єкт, що містить відсортований масив та глибину стеку рекурсивних викликів.
- */
-
-function mergeSort(arr, swaps, depth) {
-    if (arr.length <= 1) {
-        return { sortedArray: arr, depth: 0 };
-    }
-
-    const middle = Math.floor(arr.length / 2);
-    const left = arr.slice(0, middle);
-    const right = arr.slice(middle);
-
-    const leftResult = mergeSort(left, swaps, depth + 1);
-    const rightResult = mergeSort(right, swaps, depth + 1);
-
-    return merge(leftResult.sortedArray, rightResult.sortedArray, swaps, leftResult.depth, rightResult.depth);
-}
-
-
-/**
- * Об'єднує два відсортованих масиви в один відсортований масив.
- * @param {Array} left - Перший відсортований масив.
- * @param {Array} right - Другий відсортований масив.
- * @param {Array} swaps - Масив для зберігання проміжних результатів процесу сортування.
- * @param {number} leftDepth - Глибина стеку рекурсивних викликів для лівого масиву.
- * @param {number} rightDepth - Глибина стеку рекурсивних викликів для правого масиву.
- * @returns {Object} Об'єкт, що містить об'єднаний масив та глибину стеку рекурсивних викликів.
- */
-function merge(left, right, swaps, leftDepth, rightDepth) {
-    let result = [];
-    let leftIndex = 0;
-    let rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex] < right[rightIndex]) {
-            result.push(left[leftIndex]);
-            leftIndex++;
+    for (let k = p; k <= r; k++) {
+        if (i <= q && (j > r || A[i] <= A[j])) {
+            B[k] = A[i];
+            i++;
         } else {
-            result.push(right[rightIndex]);
-            rightIndex++;
+            B[k] = A[j];
+            j++;
         }
     }
 
-    while (leftIndex < left.length) {
-        result.push(left[leftIndex]);
-        leftIndex++;
+    for (let k = p; k <= r; k++) {
+        A[k] = B[k];
     }
 
-    while (rightIndex < right.length) {
-        result.push(right[rightIndex]);
-        rightIndex++;
-    }
+    swaps.push(A.slice(p, r + 1));
+    return { sortedArray: A, depth: depth + 1 };
+}
 
-    swaps.push(result);
-    return { sortedArray: result, depth: Math.max(leftDepth, rightDepth) + 1 };
+function mergeSort(A, p, r, swaps, depth) {
+    if (p < r) {
+        let q = Math.floor((p + r) / 2);
+        let leftResult = mergeSort(A, p, q, swaps, depth + 1);
+        let rightResult = mergeSort(A, q + 1, r, swaps, depth + 1);
+        return merge(leftResult.sortedArray, p, q, r, swaps, Math.max(leftResult.depth, rightResult.depth));
+    }
+    return { sortedArray: A, depth: depth };
 }
 
 module.exports = mergeSort;

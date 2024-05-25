@@ -109,19 +109,19 @@ document.querySelector('#MergeForm').addEventListener('submit', (event) => {
 
     deleteElements();
 
-    const [minMergeValue, maxMergeValue, arrayMergeSize] =
+    let [minValue, maxValue, arraySize] =
         ['minMergeValue', 'maxMergeValue', 'arrayMergeSize'].map(id =>
             parseInt(document.querySelector(`#${id}`).value));
     const screenWidth = window.innerWidth;
 
-    if (!errorHandling(minMergeValue, maxMergeValue, arrayMergeSize, screenWidth)) return;
+    if (!errorHandling(minValue, maxValue, arraySize, screenWidth)) return;
 
     let stopSwapVariable = false;
     const stopSwap = () => stopSwapVariable;
     const stopMergeSort = () => stopSwapVariable = true;
     document.querySelector('#stopMergeBtn').addEventListener('click', stopMergeSort);
 
-    let MergeData = new Data(arrayMergeSize, minMergeValue, maxMergeValue);
+    let MergeData = new Data(arraySize, minValue, maxValue);
     if (document.getElementById("sortArrayReversedMerge").checked) MergeData.array.sort((a, b) => b - a);
     if (document.getElementById("sortArraySortedMerge").checked) MergeData.array.sort((a, b) => a - b);
 
@@ -135,7 +135,7 @@ document.querySelector('#MergeForm').addEventListener('submit', (event) => {
 
     let swaps = [], depth = 0;
     const startTime = performance.now();
-    let { sortedArray, depth: recursionDepth } = mergeSort(MergeData.array, swaps, depth);
+    let { sortedArray, depth: recursionDepth } = mergeSort(MergeData.array, 0, arraySize-1, swaps, depth);
     const endTime = performance.now();
     const sortingTime = endTime - startTime;
 
@@ -165,19 +165,19 @@ document.querySelector('#QuickForm').addEventListener('submit', async (event) =>
 
     deleteElements();
 
-    const minQuickValue = parseInt(document.querySelector('#minQuickValue').value);
-    const maxQuickValue = parseInt(document.querySelector('#maxQuickValue').value);
-    const arrayQuickSize = parseInt(document.querySelector('#arrayQuickSize').value);
+    let [minValue, maxValue, arraySize] =
+        ['minQuickValue', 'maxQuickValue', 'arrayQuickSize'].map(id =>
+            parseInt(document.querySelector(`#${id}`).value));
     const screenWidth = window.innerWidth;
 
-    if (!errorHandling(minQuickValue, maxQuickValue, arrayQuickSize, screenWidth)) return;
+    if (!errorHandling(minValue, maxValue, arraySize, screenWidth)) return;
 
     let stopSwapVariable = false;
     const stopSwap = () => stopSwapVariable;
     const stopQuickSort = () => { stopSwapVariable = true; };
     document.querySelector('#stopQuickBtn').addEventListener('click', stopQuickSort);
 
-    let QuickData = new Data(arrayQuickSize, minQuickValue, maxQuickValue);
+    let QuickData = new Data(arraySize, minValue, maxValue);
     if (document.getElementById("sortArrayReversedQuick").checked) {
         QuickData.array.sort((a, b) => b - a);
     } else if (document.getElementById("sortArraySortedQuick").checked) {
@@ -206,7 +206,7 @@ document.querySelector('#QuickForm').addEventListener('submit', async (event) =>
     });
     document.getElementById("maxRecursionDepthQuick").textContent =
         `Практична складність (максимальна глибина рекурсії * розмір масиву): 
-        ${result.maxDepth}*${QuickData.array.length} = ${result.maxDepth*QuickData.array.length}`;
+        ${result.maxDepth}*${QuickData.arraySize} = ${result.maxDepth*QuickData.arraySize}`;
     document.getElementById("sortingTimeQuick").textContent = `Час сортування: ${sortingTime} мс`;
 });
 
@@ -220,19 +220,19 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
 
     deleteElements();
 
-    const minIntroValue = parseInt(document.querySelector('#minIntroValue').value);
-    const maxIntroValue = parseInt(document.querySelector('#maxIntroValue').value);
-    const arrayIntroSize = parseInt(document.querySelector('#arrayIntroSize').value);
+    let [minValue, maxValue, arraySize] =
+        ['minIntroValue', 'maxIntroValue', 'arrayIntroSize'].map(id =>
+            parseInt(document.querySelector(`#${id}`).value));
     const screenWidth = window.innerWidth;
 
-    if (!errorHandling(minIntroValue, maxIntroValue, arrayIntroSize, screenWidth)) return;
+    if (!errorHandling(minValue, maxValue, arraySize, screenWidth)) return;
 
     let stopSwapVariable = false;
     const stopSwap = () => stopSwapVariable;
     const stopIntroSort = () => stopSwapVariable = true;
     document.querySelector('#stopIntroBtn').addEventListener('click', stopIntroSort);
 
-    let IntroData = new Data(arrayIntroSize, minIntroValue, maxIntroValue);
+    let IntroData = new Data(arraySize, minValue, maxValue);
     if (document.getElementById("sortArrayReversedIntro").checked) {
         IntroData.array.sort((a, b) => b - a);
     }
@@ -267,6 +267,6 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
     usingHeapsort === true ? document.getElementById('messageIntro').textContent = `Кількість перестановок:${swapsHeapsort}`:
         document.getElementById('messageIntro').textContent =
         `Практична складність (максимальна глибина рекурсії * розмір масиву): 
-        ${maxDepthQuick}*${IntroData.array.length} =${IntroData.array.length*maxDepthQuick}`;
+        ${maxDepthQuick}*${IntroData.arraySize} =${IntroData.arraySize*maxDepthQuick}`;
     document.getElementById("sortingTimeIntro").textContent = `Час сортування: ${sortingTime} мс`;
 });

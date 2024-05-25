@@ -131,8 +131,8 @@ function partition(low, high, arr, swaps) {
  * Вона повертає індекс медіани трьох елементів у масиві.
  *
  * @param {Number} a - Індекс першого елемента.
- * @param {Number} b - Індекс другого елемента.
- * @param {Number} d - Індекс третього елемента.
+ * @param {Number} b - Індекс середнього елемента.
+ * @param {Number} d - Індекс кінцевого елемента.
  * @param {Array} arr - Масив, що містить елементи.
  * @returns {Number} Індекс медіани трьох елементів.
  */
@@ -200,25 +200,24 @@ function introsortUtil(begin, end, depthLimit, arr, swaps) {
     if (size < 16) {
         insertionSort(begin, end, arr, swaps);
         return usingHeapsort;
-    }
-
-    if (depthLimit === 0 && !isSorted(arr.slice(begin, end + 1))) {
+    }else if (depthLimit === 0 && !isSorted(arr.slice(begin, end + 1))) {
         usingHeapsort = true;
         heapsort(arr, swaps);
         return usingHeapsort;
+    }else {
+        currentDepthQuick++;
+        if (currentDepthQuick > maxDepthQuick) {
+            maxDepthQuick = currentDepthQuick;
+        }
+        const pivot = medianOfThree(begin, begin + Math.floor(size / 2), end, arr);
+        [arr[pivot], arr[end]] = [arr[end], arr[pivot]];
+        swaps.push([pivot, end]);
+        const partitionPoint = partition(begin, end, arr, swaps);
+        introsortUtil(begin, partitionPoint - 1, depthLimit - 1, arr, swaps);
+        introsortUtil(partitionPoint + 1, end, depthLimit - 1, arr, swaps);
+        currentDepthQuick--;
     }
-    currentDepthQuick++;
-    if (currentDepthQuick > maxDepthQuick) {
-        maxDepthQuick = currentDepthQuick;
-    }
-    
-    const pivot = medianOfThree(begin, begin + Math.floor(size / 2), end, arr);
-    [arr[pivot], arr[end]] = [arr[end], arr[pivot]];
-    swaps.push([pivot, end]);
-    const partitionPoint = partition(begin, end, arr, swaps);
-    introsortUtil(begin, partitionPoint - 1, depthLimit - 1, arr, swaps);
-    introsortUtil(partitionPoint + 1, end, depthLimit - 1, arr, swaps);
-    currentDepthQuick--;
 }
 
 module.exports = introSort;
+

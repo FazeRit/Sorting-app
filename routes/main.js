@@ -31,7 +31,7 @@ function createWindow() {
     });
 
     // Відкриває DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Завантажує HTML-файл основного вікна.
     mainWindow.loadFile('./views/mainWindow.html')
