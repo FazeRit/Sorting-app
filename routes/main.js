@@ -31,7 +31,7 @@ function createWindow() {
     });
 
     // Відкриває DevTools.
-    mainWindow.webContents.openDevTools();
+    /*mainWindow.webContents.openDevTools();*/
 
     // Завантажує HTML-файл основного вікна.
     mainWindow.loadFile('./views/mainWindow.html')
@@ -122,11 +122,11 @@ newWindowError.once('ready-to-show', () => {
 }
 
 // Події міжпроцесорного спілкування для різних умов помилок.
-ipcMain.on("minValueError", function (event, arg) {
-    createModal( `Неприпустиме значення для мінімального значення елементу масиву. Допустимі значення від 1 до 100`);
+ipcMain.on("minValueError", function (event) {
+    createModal( `Неприпустиме значення для мінімального значення елементу масиву. Допустимі значення від -5000 до 5000`);
 });
-ipcMain.on("maxValueError", function (event, arg) {
-    createModal(`Неприпустиме значення для максимального значення елементу масиву. Допустимі значення від 1 до 100`);
+ipcMain.on("maxValueError", function (event) {
+    createModal(`Неприпустиме значення для максимального значення елементу масиву. Допустимі значення від -5000 до 5000`);
 });
 ipcMain.on("arraySizeError", function (event, arg) {
     createModal(`Неприпустиме значення для розміру масиву. Допустимі значення від 2 до ${arg}.`);
@@ -134,9 +134,9 @@ ipcMain.on("arraySizeError", function (event, arg) {
 ipcMain.on("minmaxValueError", function (event, arg) {
     createModal(`Мінімальне значення для розміру масиву не може бути більше максимального.`);
 });
-ipcMain.on("valueDifferenceError", function (event, arg) {
+/*ipcMain.on("valueDifferenceError", function (event, arg) {
     createModal(`Різниця між мінімальним та максимальним значенням повинна бути більше 1.`);
-});
+});*/
 
 /**
 * Зберігає відсортований масив у файл.

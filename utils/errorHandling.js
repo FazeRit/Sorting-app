@@ -16,10 +16,10 @@ const errorHandling = (min, max, size,screenWidth) => {
     } else if (min > max) {
         ipcRenderer.send("minmaxValueError");
         return false;
-    } else if (max - min < 1) {
+    } /*else if (max - min < 1) {
         ipcRenderer.send("valueDifferenceError");
         return false;
-    }
+    }*/
     return true;
 }
 
