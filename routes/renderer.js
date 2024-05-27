@@ -5,9 +5,9 @@ const swapHeightsQuick = require('../utils/swapHeightsQuick');
 const swapHeightsMerge = require('../utils/swapHeightsMerge');
 
 // Алгоритми сортування
-const mergeSort  = require('../sorts/mergeSort');
-const quickSort = require('../sorts/quickSort');
-const introSort = require('../sorts/introSort');
+const MergeSort  = require('../sorts/mergeSort');
+const QuickSort = require('../sorts/quickSort');
+const IntroSort = require('../sorts/introSort');
 
 // Утиліта для обробки помилок
 const errorHandling = require('../utils/errorHandling');
@@ -135,11 +135,12 @@ document.querySelector('#MergeForm').addEventListener('submit', (event) => {
 
     let swaps = [], depth = 0;
     const startTime = performance.now();
-    let { sortedArray, depth: recursionDepth } = mergeSort(MergeData.array, 0, arraySize-1, swaps, depth);
+    let mergeSortInstance = new MergeSort(MergeData.array);
+    let { sortedArray, depth: recursionDepth } = mergeSortInstance.sort(0, arraySize-1);
     const endTime = performance.now();
     const sortingTime = endTime - startTime;
 
-    swapHeightsMerge(swaps, parentDivMerge, parentDivMerge.querySelectorAll('.bar'), stopSwap, screenWidth);
+    swapHeightsMerge(mergeSortInstance.swaps, parentDivMerge, parentDivMerge.querySelectorAll('.bar'), stopSwap, screenWidth);
 
     const outputArrayElement = document.querySelector('.outputArray#mergeSortArray');
     outputArrayElement.textContent = sortedArray.slice(0, 50).join(', ') + '...';
@@ -191,14 +192,14 @@ document.querySelector('#QuickForm').addEventListener('submit', async (event) =>
     let screenSize = screenWidth < 1200 ? 75 : 80;
     barsList.createBars(screenSize);
 
-    let swaps = [], depth = 0;
     let startTime = performance.now();
-    let result = quickSort(QuickData.array, 0, QuickData.array.length - 1, swaps, depth);
+    let quickSortInstance = new QuickSort(QuickData.array);
+    let result = quickSortInstance.sort(0, QuickData.array.length - 1);
     let endTime = performance.now();
     let sortingTime = endTime - startTime;
     let sortedArray = result.sortedArray;
 
-    swapHeightsQuick(swaps, parentDivQuick, parentDivQuick.querySelectorAll('.bar'), stopSwap);
+    swapHeightsQuick(quickSortInstance.swaps, parentDivQuick, parentDivQuick.querySelectorAll('.bar'), stopSwap);
     document.getElementById("saveFileQuick").removeAttribute("disabled");
     document.querySelector('.outputArray#quickSortArray').textContent = sortedArray.slice(0, 50).join(', ') + '...';
     document.getElementById('saveFileQuick').addEventListener('click', () => {
@@ -250,7 +251,8 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
 
     const swaps = [];
     let startTime = performance.now();
-    const { usingHeapsort, swapsHeapsort, maxDepthQuick }= introSort(0, IntroData.array.length - 1, IntroData.array, swaps);
+    let introSortInstance = new IntroSort();
+    let { usingHeapsort, swapsHeapsort, maxDepthQuick } = introSortInstance.introSort(0, IntroData.array.length - 1, IntroData.array, swaps);
     let endTime = performance.now();
     let sortingTime = endTime - startTime;
 
@@ -266,7 +268,7 @@ document.querySelector('#IntroForm').addEventListener('submit', (event) => {
 
     usingHeapsort === true ? document.getElementById('messageIntro').textContent = `Кількість перестановок:${swapsHeapsort}`:
         document.getElementById('messageIntro').textContent =
-        `Практична складність (максимальна глибина рекурсії * розмір масиву): 
+            `Практична складність (максимальна глибина рекурсії * розмір масиву): 
         ${maxDepthQuick}*${IntroData.arraySize} =${IntroData.arraySize*maxDepthQuick}`;
     document.getElementById("sortingTimeIntro").textContent = `Час сортування: ${sortingTime} мс`;
 });

@@ -1,34 +1,79 @@
-function merge(A, p, q, r, swaps, depth) {
-    let i = p;
-    let j = q + 1;
-    let B = [];
+/**
+ * Клас MergeSort для виконання сортування злиттям масиву.
+ */
+class MergeSort {
+    /**
+     * Створює новий екземпляр MergeSort.
+     * @param {Array} array - Масив, який потрібно відсортувати.
+     * @param {Array} swaps - Масив для зберігання обмінів елементів.
+     * @param {number} depth - Поточна глибина рекурсії
+     */
+    constructor(array) {
+        this.array = array;
+        this.swaps = [];
+        this.depth = 0;
+    }
 
-    for (let k = p; k <= r; k++) {
-        if (i <= q && (j > r || A[i] <= A[j])) {
-            B[k] = A[i];
+
+    /**
+     * Об'єднує два відсортованих підмасиви this.array.
+     * @param {number} p - Початковий індекс першого підмасиву.
+     * @param {number} q - Кінцевий індекс першого підмасиву.
+     * @param {number} r - Кінцевий індекс другого підмасиву.
+     * @returns {Object} - Об'єкт, що містить відсортований масив та глибину рекурсії.
+     */
+    merge(p, q, r) {
+        let i = p;
+        let j = q + 1;
+        let B = [];
+
+        while (i <= q && j <= r) {
+            if (this.array[i] <= this.array[j]) {
+                B.push(this.array[i]);
+                i++;
+            } else {
+                B.push(this.array[j]);
+                j++;
+            }
+        }
+
+        while (i <= q) {
+            B.push(this.array[i]);
             i++;
-        } else {
-            B[k] = A[j];
+        }
+
+        while (j <= r) {
+            B.push(this.array[j]);
             j++;
         }
+
+        for (let k = p; k <= r; k++) {
+            this.array[k] = B[k - p];
+        }
+
+        this.swaps.push(this.array.slice(p, r + 1));
+        return { sortedArray: this.array, depth: this.depth };
     }
 
-    for (let k = p; k <= r; k++) {
-        A[k] = B[k];
-    }
 
-    swaps.push(A.slice(p, r + 1));
-    return { sortedArray: A, depth: depth + 1 };
+    /**
+     * Сортує частину this.array за допомогою сортування злиттям.
+     * @param {number} p - Початковий індекс частини, яку потрібно відсортувати.
+     * @param {number} r - Кінцевий індекс частини, яку потрібно відсортувати.
+     * @param {number} [depth=0] - Поточна глибина рекурсії.
+     * @returns {Object} - Об'єкт, що містить відсортований масив та глибину рекурсії.
+     */
+    sort(p, r, depth = 0) {
+        if (p < r) {
+            let q = Math.floor((p + r) / 2);
+            let leftResult = this.sort(p, q, depth + 1);
+            let rightResult = this.sort(q + 1, r, depth + 1);
+            this.depth = Math.max(this.depth, leftResult.depth, rightResult.depth);
+            return this.merge(p, q, r);
+        }
+        this.depth = Math.max(this.depth, depth);
+        return { sortedArray: this.array, depth: this.depth };
+    }
 }
 
-function mergeSort(A, p, r, swaps, depth) {
-    if (p < r) {
-        let q = Math.floor((p + r) / 2);
-        let leftResult = mergeSort(A, p, q, swaps, depth + 1);
-        let rightResult = mergeSort(A, q + 1, r, swaps, depth + 1);
-        return merge(leftResult.sortedArray, p, q, r, swaps, Math.max(leftResult.depth, rightResult.depth));
-    }
-    return { sortedArray: A, depth: depth };
-}
-
-module.exports = mergeSort;
+module.exports = MergeSort;

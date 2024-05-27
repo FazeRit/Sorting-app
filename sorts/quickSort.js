@@ -1,53 +1,59 @@
-/**
- * Цей модуль надає реалізацію алгоритму швидкого сортування у JavaScript.
- * @module quickSort
- */
-
-/**
- * Рекурсивно сортує масив за допомогою алгоритму швидкого сортування.
- * @param {Array} arr - Масив, який потрібно відсортувати.
- * @param {number} low - Індекс нижньої межі масиву для сортування.
- * @param {number} high - Індекс верхньої межі масиву для сортування.
- * @param {Array} swaps - Масив для зберігання проміжних результатів процесу сортування.
- * @param {number} depth - Поточна глибина стеку рекурсивних викликів.
- * @returns {Object} Об'єкт, що містить відсортований масив та максимальну глибину стеку рекурсивних викликів.
- */
-function quickSort(arr, low, high, swaps, depth) {
-    if (low < high) {
-        const pivotIndex = partition(arr, low, high, swaps);
-        depth++;
-        if (depth > maxDepth) {
-            maxDepth = depth;
-        }
-        quickSort(arr, low, pivotIndex - 1, swaps, depth);
-        quickSort(arr, pivotIndex + 1, high, swaps, depth);
-        depth--;
+class QuickSort {
+    /**
+     * Створює новий екземпляр QuickSort.
+     * @param {Array} array - Масив, який потрібно відсортувати.
+     * @param {number} depth - Поточна глибина рекурсії.
+     * @param {number} maxDepth - Максимальна глибина рекурсії.
+     * @param {Array} swaps - Масив для зберігання обмінів елементів.
+     */
+    constructor(array) {
+        this.array = array;
+        this.swaps = [];
+        this.depth = 0;
+        this.maxDepth = 0;
     }
-    return { sortedArray: arr, maxDepth };
+
+    /**
+     * Виконує процедуру розбиття для швидкого сортування.
+     * @param {number} low - Початковий індекс частини масиву, яку потрібно відсортувати.
+     * @param {number} high - Кінцевий індекс частини масиву, яку потрібно відсортувати.
+     * @returns {number} - Індекс опорного елемента після розбиття.
+     */
+    partition(low, high) {
+        const pivot = this.array[high];
+        let i = low - 1;
+        for (let j = low; j < high; j++) {
+            if (this.array[j] < pivot) {
+                i++;
+                [this.array[i], this.array[j]] = [this.array[j], this.array[i]];
+                this.swaps.push([i, j]);
+            }
+        }
+        [this.array[i + 1], this.array[high]] = [this.array[high], this.array[i + 1]];
+        this.swaps.push([i + 1, high]);
+        return i + 1;
+    }
+
+    /**
+     * Виконує швидке сортування.
+     * @param {number} low - Початковий індекс частини масиву, яку потрібно відсортувати.
+     * @param {number} high - Кінцевий індекс частини масиву, яку потрібно відсортувати.
+     * @param {number} [depth=0] - Поточна глибина рекурсії.
+     * @returns {Object} - Об'єкт, що містить відсортований масив та максимальну глибину рекурсії.
+     */
+    sort(low, high, depth = 0) {
+        if (low < high) {
+            const pivotIndex = this.partition(low, high);
+            this.depth++;
+            if (this.depth > this.maxDepth) {
+                this.maxDepth = this.depth;
+            }
+            this.sort(low, pivotIndex - 1, this.depth);
+            this.sort(pivotIndex + 1, high, this.depth);
+            this.depth--;
+        }
+        return { sortedArray: this.array, maxDepth: this.maxDepth };
+    }
 }
 
-/**
- * Розбиває масив на дві частини за допомогою опорного елемента.
- * @param {Array} arr - Масив, який потрібно розбити.
- * @param {number} low - Індекс нижньої межі масиву для розбиття.
- * @param {number} high - Індекс верхньої межі масиву для розбиття.
- * @param {Array} swaps - Масив для зберігання проміжних результатів процесу розбиття.
- * @returns {number} Індекс опорного елемента в розбитому масиві.
- */
-function partition(arr, low, high, swaps) {
-    const pivot = arr[high];
-    let i = low - 1;
-    for (let j = low; j < high; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-            swaps.push([i, j]);
-        }
-    }
-    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-    swaps.push([i + 1, high]);
-    return i + 1;
-}
-
-let maxDepth = 0;
-module.exports = quickSort;
+module.exports = QuickSort;

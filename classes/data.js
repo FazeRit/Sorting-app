@@ -12,18 +12,17 @@ class Data {
         this.arraySize = arraySize;
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.array = this.generateRandomArray();
+        this.array = this.generateRandomArray( this.minValue, this.maxValue, this.arraySize);
     }
 
     /**
      * Генерує випадковий масив заданого розміру з числами в заданому діапазоні.
      * @returns {Array} Випадковий масив.
      */
-
-    generateRandomArray(){
+    generateRandomArray(minValue, maxValue, arraySize) {
         let array = [];
-        for (let i = 0; i < this.arraySize; i++) {
-            array.push(Math.floor(Math.random() * (this.maxValue - this.minValue + 1)) + this.minValue);
+        for (let i = 0; i < arraySize; i++) {
+            array.push(Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue);
         }
         return array;
     }
