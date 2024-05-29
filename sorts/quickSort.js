@@ -41,16 +41,12 @@ class QuickSort {
      * @param {number} [depth=0] - Поточна глибина рекурсії.
      * @returns {Object} - Об'єкт, що містить відсортований масив та максимальну глибину рекурсії.
      */
-    sort(low, high, depth = 0) {
+    sort(low = 0, high = this.array.length - 1, depth = 0) {
         if (low < high) {
             const pivotIndex = this.partition(low, high);
-            this.depth++;
-            if (this.depth > this.maxDepth) {
-                this.maxDepth = this.depth;
-            }
-            this.sort(low, pivotIndex - 1, this.depth);
-            this.sort(pivotIndex + 1, high, this.depth);
-            this.depth--;
+            this.maxDepth = Math.max(this.maxDepth, depth + 1);
+            this.sort(low, pivotIndex - 1, depth + 1);
+            this.sort(pivotIndex + 1, high, depth + 1);
         }
         return { sortedArray: this.array, maxDepth: this.maxDepth };
     }
