@@ -4,15 +4,15 @@
 
 ## Встановлення (спосіб 1)
 
-1. Завантажте архів `sorting-app-linux-x64` за посиланням https://mega.nz/folder/kAJhTSSB#RoHjBa9_5Om87OIWtZWGGA.
-2. Відкрийте термінал і перейдіть до директорії, що ви розпакували.
-3. Запустіть файл за допомогою команди:
+1. Завантажте архів `sorting-app-linux-x64` за посиланням https://mega.nz/folder/dBAUXTyA#MmxMZ_wuoWNXnhCJAwlIzQ.
+3. Відкрийте термінал і перейдіть до директорії, що ви розпакували.
+4. Запустіть файл за допомогою команди:
 
 ```bash
 chmod +x sorting-app
 ./sorting-app
 ```
 ## Встановлення (спосіб 2)
-1. Завантажте файл з розширенням .deb за посиланням https://mega.nz/file/1ExQyAqK#GZzYWEBwCFIm0h3-OQ47Ux8rC1_Wfr_D6tKeZjCFr1k
+1. Завантажте файл з розширенням .deb за посиланням https://mega.nz/file/sVAWiAyD#E6H-X-jDQZ6TGXLfdSc1s7RLpSIfvaqSZSKBmvT9ADo.
 2. Завантажте додаток на пк
    
