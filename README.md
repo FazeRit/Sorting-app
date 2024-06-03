@@ -13,6 +13,6 @@ chmod +x sorting-app
 ./sorting-app
 ```
 ## Встановлення (спосіб 2)
-1. Завантажте файл з розширенням .deb за посиланням https://mega.nz/file/sVAWiAyD#E6H-X-jDQZ6TGXLfdSc1s7RLpSIfvaqSZSKBmvT9ADo.
+1. Завантажте файл з розширенням .deb за посиланням https://mega.nz/file/AEw0jQZB#Y2Xl0TNHB_D0hCxNTZ3pFtqJoWaZHf_WqAZCuK-KCEc.
 2. Завантажте додаток на пк
    
