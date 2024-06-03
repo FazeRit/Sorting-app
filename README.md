@@ -4,7 +4,7 @@
 
 ## Встановлення (спосіб 1)
 
-1. Завантажте архів `sorting-app-linux-x64` за посиланням https://mega.nz/folder/dBAUXTyA#MmxMZ_wuoWNXnhCJAwlIzQ.
+1. Завантажте архів `sorting-app-linux-x64` за посиланням https://mega.nz/file/AEw0jQZB#Y2Xl0TNHB_D0hCxNTZ3pFtqJoWaZHf_WqAZCuK-KCEc.
 3. Відкрийте термінал і перейдіть до директорії, що ви розпакували.
 4. Запустіть файл за допомогою команди:
 
